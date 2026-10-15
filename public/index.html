@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1d4ed8">
+  <title>tr4CKD</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>tr4CKD</h1>
+    <label class="lang">
+      <span aria-hidden="true">🌐</span>
+      <select id="language" aria-label="Language"></select>
+    </label>
+  </header>
+
+  <main>
+    <section id="start-screen">
+      <label class="big-button" for="photo">
+        <span class="icon" aria-hidden="true">📷</span>
+        <span data-text="takePhoto">Take a photo of your food</span>
+      </label>
+      <input id="photo" type="file" accept="image/*" capture="environment" hidden>
+    </section>
+
+    <section id="loading-screen" hidden>
+      <div class="spinner" aria-hidden="true"></div>
+      <p data-text="checking">Checking your food…</p>
+    </section>
+
+    <section id="result-screen" hidden aria-live="polite">
+      <div id="result-card" class="result">
+        <div id="result-icon" class="result-icon" aria-hidden="true"></div>
+        <p id="result-label" class="result-label"></p>
+        <p id="result-food" class="result-food"></p>
+        <p id="result-reason" class="result-reason"></p>
+        <p id="result-tip" class="result-tip"></p>
+        <p id="result-source" class="result-source"></p>
+      </div>
+      <button id="speak" class="big-button secondary" type="button">
+        <span class="icon" aria-hidden="true">🔊</span>
+        <span data-text="readAloud">Read out loud</span>
+      </button>
+      <button id="again" class="big-button" type="button">
+        <span class="icon" aria-hidden="true">📷</span>
+        <span data-text="tryAnother">Check another food</span>
+      </button>
+    </section>
+  </main>
+
+  <footer>
+    <p data-text="disclaimer">This is only an estimate, not medical advice. Always follow your doctor and dietitian.</p>
+  </footer>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "tr4CKD",
+  "short_name": "tr4CKD",
+  "description": "Take a photo of your meal to see if it is kidney-friendly.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1d4ed8",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
