@@ -1,0 +1,16 @@
+{
+  "name": "tr4ckd",
+  "version": "0.1.0",
+  "description": "Take a photo of a meal and get a simple color estimate of how kidney-friendly it is for people with stage 4 CKD.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.133.0"
+  }
+}
