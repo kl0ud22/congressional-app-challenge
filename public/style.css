@@ -1,5 +1,8 @@
-/* Large, high-contrast styles for people with low vision. */
-:root {
+/*Large, high-contrast styles for people with low vision*/
+
+
+:root 
+{
   --text: #111;
   --muted: #444;
   --bg: #fff;
@@ -9,12 +12,16 @@
   --orange: #ea580c;
   --red: #b91c1c;
   --gray: #6b7280;
+  /*base text size is larger for people with lower vision, rem sizes scale from this*/
   font-size: 22px;
 }
 
 * { box-sizing: border-box; }
 
-body {
+
+
+body 
+{
   margin: 0;
   min-height: 100vh;
   display: flex;
@@ -25,7 +32,10 @@ body {
   line-height: 1.4;
 }
 
-header {
+
+
+header 
+{
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -35,12 +45,32 @@ header {
   color: #fff;
 }
 
-h1 { margin: 0; font-size: 1.4rem; }
 
-.lang { display: flex; align-items: center; gap: 6px; }
-.lang select { font-size: 1rem; padding: 6px; border-radius: 8px; }
 
-main {
+h1 
+{ 
+  margin: 0; 
+  font-size: 1.4rem; 
+}
+
+
+
+.lang 
+{ 
+  display: flex; align-items: center; gap: 6px; 
+}
+
+.lang select 
+{ 
+  font-size: 1rem; 
+  padding: 6px; 
+  border-radius: 8px; 
+}
+
+
+
+main 
+{
   flex: 1;
   width: 100%;
   max-width: 560px;
@@ -48,10 +78,27 @@ main {
   padding: 24px 16px;
 }
 
-section { display: flex; flex-direction: column; gap: 20px; align-items: stretch; }
-section[hidden] { display: none; }
 
-.big-button {
+
+section 
+{ 
+  display: flex; 
+  flex-direction: column; 
+  gap: 20px; 
+  align-items: stretch; 
+}
+
+/*needed or else "display: flex" would override hidden attribute and every screen would show at once*/
+section[hidden] 
+{ 
+  display: none; 
+}
+
+
+
+/*large button size (for camera, read aloud, and check another food buttons) for users with low vision and shaky hands*/
+.big-button 
+{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,12 +114,30 @@ section[hidden] { display: none; }
   text-align: center;
   cursor: pointer;
 }
-.big-button.secondary { min-height: 80px; background: #e5e7eb; color: var(--text); }
-.big-button .icon { font-size: 2.2rem; }
-.big-button:focus-visible { outline: 5px solid #000; outline-offset: 3px; }
 
 
-.spinner {
+.big-button.secondary 
+{ 
+  min-height: 80px; 
+  background: #e5e7eb; 
+  color: var(--text); 
+}
+
+.big-button .icon 
+{ 
+  font-size: 2.2rem; 
+}
+
+.big-button:focus-visible 
+{ 
+  outline: 5px solid #000; 
+  outline-offset: 3px; 
+}
+
+
+
+.spinner 
+{
   width: 90px;
   height: 90px;
   margin: 40px auto 0;
@@ -81,26 +146,113 @@ section[hidden] { display: none; }
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
-#loading-screen p { text-align: center; font-size: 1.2rem; }
 
-.result {
+
+@keyframes spin 
+{ 
+  to 
+  { 
+    transform: rotate(360deg); 
+  } 
+}
+
+#loading-screen p 
+{ 
+  text-align: center; 
+  font-size: 1.2rem; 
+}
+
+
+
+.result 
+{
   padding: 24px 20px;
   border-radius: 24px;
   color: #fff;
   text-align: center;
 }
-.result.green { background: var(--green); }
-.result.yellow { background: var(--yellow); color: #111; }
-.result.orange { background: var(--orange); }
-.result.red { background: var(--red); }
-.result.unknown { background: var(--gray); }
 
-.result-icon { font-size: 5rem; line-height: 1; }
-.result-label { margin: 8px 0; font-size: 1.8rem; font-weight: 800; }
-.result-food { margin: 0 0 12px; font-size: 1.1rem; font-weight: 600; }
-.result-reason, .result-tip { margin: 8px 0 0; font-size: 1.1rem; }
-.result-source { margin: 16px 0 0; font-size: 1rem; }
-.result-source a { color: inherit; font-weight: 700; text-decoration: underline; }
 
-footer { padding: 12px 16px 20px; color: var(--muted); font-size: 0.8rem; text-align: center; }
+/*below are the color results with a symbol so color isn't the only indicator of results*/
+.result.green 
+{ 
+  background: var(--green); 
+}
+
+/*black text for yellow background so words are still easily visible*/
+.result.yellow 
+{ 
+  background: var(--yellow); 
+  color: #111; 
+}
+
+.result.orange 
+{ 
+  background: var(--orange); 
+}
+
+.result.red 
+{ 
+  background: var(--red); 
+}
+
+.result.unknown 
+{ 
+  background: var(--gray); 
+}
+
+
+
+.result-icon 
+{ 
+  font-size: 5rem; 
+  line-height: 1; 
+}
+
+.result-label 
+{ 
+  margin: 8px 0; 
+  font-size: 1.8rem; 
+  font-weight: 800; 
+}
+
+.result-food 
+{ 
+  margin: 0 0 12px; 
+  font-size: 1.1rem; 
+  font-weight: 600; 
+}
+
+.result-reason, .result-tip 
+{ 
+  margin: 8px 0 0; 
+  font-size: 1.1rem; 
+}
+
+.result-source 
+{ 
+  margin: 16px 0 0; 
+  font-size: 1rem; 
+}
+
+.result-source a 
+{ 
+  color: inherit; 
+  font-weight: 700; 
+  text-decoration: underline; 
+}
+
+
+
+footer 
+{ 
+  padding: 12px 16px 20px; 
+  color: var(--muted); 
+  font-size: 1rem; 
+  text-align: center; 
+}
+
+
+
+
+
