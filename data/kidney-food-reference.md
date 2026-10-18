@@ -1,6 +1,6 @@
 # Kidney food reference (Draft of what foods to and to not eat)
 
-Purpose: this is the list the tr4CKD app checks each food against. It summarizes general guidance from the sources below, but as an overall summary rather than direct referencing--check liscensing rules and contuct. THIS IS NOT A SUBSTITUTION TO A DIETITION'S LIST. **Where his dietitian's list differs, the dietitian's list wins.**
+Purpose: this is the list the tr4CKD app checks each food against. It summarizes general guidance from the sources below, but as an overall summary rather than direct referencing--check liscensing rules and contuct. THIS IS NOT A SUBSTITUTION TO A DIETITION'S LIST. **Where your dietitian's list differs, the dietitian's list wins.**
 
 Status: DRAFT. Not yet reviewed by a dietitian or doctor. Each rule links to the source it came from.
 
@@ -41,14 +41,14 @@ Status: DRAFT. Not yet reviewed by a dietitian or doctor. Each rule links to the
 - Higher-phosphorus foods to limit: whole-grain bread, bran cereal, oatmeal, nuts, seeds, dark colas, high-phosphorus cheeses. [Kidney Fund: eating plan] [kidney.org superfoods]
 
 ### Protein
-- Amount set by his doctor or dietitian. Too little or too much can both cause problems. [Kidney Fund: eating plan] [Kidney Fund: Kitchen] [NIDDK]
+- Amount set by your doctor or dietitian. Too little or too much can both cause problems. [Kidney Fund: eating plan] [Kidney Fund: Kitchen] [NIDDK]
 - General references in the sources range from about 0.6 to 1 g/kg of body weight a day. [Rogosin] [Kidney Fund: Kitchen]
 - Favor lean protein: eggs, skinless chicken or turkey, fish, beans, lentils, tofu. [Kidney Fund: eating plan] [Kidney Fund: Kitchen] [kidney.org superfoods]
 - Eat red meat and organ meats less often, about once a week at most. [Rogosin] [Kidney Fund: Kitchen]
 - Keep meat portions small. Fill more of the plate with vegetables. [Kidney Fund: Kitchen]
 
 ### Fluids
-- Some people with CKD need to limit fluids. Ask his care team for a daily target. [Kidney Fund: eating plan] [NIDDK] [Kidney Fund: stage 4] 
+- Some people with CKD need to limit fluids. Ask your care team for a daily target. [Kidney Fund: eating plan] [NIDDK] [Kidney Fund: stage 4] 
 - Anything that is liquid at room temperature counts: water, coffee, milk, juice, soup, ice, gelatin, ice cream. [Kidney Fund: eating plan] [Kidney Fund: Kitchen]
 - Tips for thirst: sugar-free hard candy, chewing gum, small cups, limit salt. [Kidney Fund: eating plan]
 
@@ -83,7 +83,7 @@ Status: DRAFT. Not yet reviewed by a dietitian or doctor. Each rule links to the
 - Nuts, seeds, oatmeal, bran cereal, granola [Kidney Fund: eating plan] [Kidney Fund: Kitchen]
 - Brown or wild rice (higher potassium and phosphorus) [Kidney Fund: eating plan]
 - Sweets, cakes, cookies, chocolate [Rogosin]
-- Wine: up to 3 to 4 oz with a meal, if his doctor allows any alcohol [Rogosin] [NIDDK]
+- Wine: up to 3 to 4 oz with a meal, if your doctor allows any alcohol [Rogosin] [NIDDK]
 
 ### Red (avoid or rarely)
 - Processed and cured meats: bacon, sausage, ham, salami, deli meats [Rogosin] [NIDDK]
@@ -97,16 +97,16 @@ Status: DRAFT. Not yet reviewed by a dietitian or doctor. Each rule links to the
 
 ---
 
-## Where the sources disagree (his dietitian should settle these)
+## Where the sources disagree (your dietitian should settle these)
 
-- **Whole grains:** Kidney Fund (eating plan) and Rogosin recommend whole grains. Kidney Fund (eating plan) also lists whole-grain bread, bran and oatmeal as higher in phosphorus. Rating: yellow, check his labs.
+- **Whole grains:** Kidney Fund (eating plan) and Rogosin recommend whole grains. Kidney Fund (eating plan) also lists whole-grain bread, bran and oatmeal as higher in phosphorus. Rating: yellow, check your labs.
 - **Avocado and tomatoes:** kidney.org superfoods lists tomatoes and avocado as recommended. Kidney Fund and Rogosin list them as higher-potassium foods to limit. Rating: orange.
-- **Protein amount:** the sources give ranges from about 0.6 to 1 g/kg a day. His target is set by his doctor or dietitian.
+- **Protein amount:** the sources give ranges from about 0.6 to 1 g/kg a day. Your target is set by your doctor or dietitian.
 - **Cheese:** kidney.org superfoods says choose low-phosphorus cheese. Rogosin allows about 1 oz a day. Rating: yellow for low-phosphorus or small amounts; orange for high-phosphorus.
 
 ## What the sources do not cover
 - Specific potassium and phosphorus amounts. (All sources defer to blood tests.)
-- Specific fluid amounts. (All sources defer to his care team.)
+- Specific fluid amounts. (All sources defer to your care team.)
 - Most brand-name and restaurant foods.
 
 ---
