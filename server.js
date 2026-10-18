@@ -1,26 +1,36 @@
-// tr4CKD server: serves the web app and asks Claude to look at meal photos.
-// Run with `npm start`, then open http://localhost:3000 on your phone or computer.
+//tr4CKD server: serves the web app and asks Claude to look at meal photos
+//run with `npm start`, then open http://localhost:3000 on your computer or phone on the same wifi
 
 import http from "node:http";
 import fs from "node:fs/promises";
 import path from "node:path";
 import Anthropic from "@anthropic-ai/sdk";
 
-try {
-  process.loadEnvFile(); // reads .env if it exists
-} catch {
-  // no .env file, that's fine
+try 
+{
+  process.loadEnvFile(); //reads .env if it exists
+} 
+
+catch 
+{
+  //still works if no .env file
 }
+
+
 
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC_DIR = path.join(import.meta.dirname, "public");
 const MAX_BODY_BYTES = 8 * 1024 * 1024;
+//with no api key, the app runs in demo mode and returns a pretend result so app can be tried for free
 const DEMO_MODE = !process.env.ANTHROPIC_API_KEY;
 const client = DEMO_MODE ? null : new Anthropic();
 
-// The food rules come from a reference file, so every rating can be traced to a source.
+//the food rules come from a reference file, so every rating can be traced to a source
+//read once at startup then waits until the file is loaded before server starts
 const REFERENCE = await fs.readFile(path.join(import.meta.dirname, "data", "kidney-food-reference.md"), "utf8");
 
+//these are the instructions sent to the claude model every time the user uploads a photo
+//must directly refer to foods listed in the reference list, if not on it then must state that the food was not on the list (but still gives best guess)
 const SYSTEM_PROMPT = `You help an older adult with stage 4 chronic kidney disease (CKD G4, not on a special diet plan you know of) decide whether a meal in a photo is a good choice for their kidneys.
 
 Look at the photo and name the food. Then check it ONLY against the reference list below. Do not use other knowledge about the food.
@@ -36,26 +46,76 @@ Look at the photo and name the food. Then check it ONLY against the reference li
 ${REFERENCE}
 </reference>`;
 
-const RESULT_SCHEMA = {
+
+
+//exact schema that claude needs to return so app.js can read it
+const RESULT_SCHEMA = 
+{
   type: "object",
-  properties: {
-    rating: { type: "string", enum: ["green", "yellow", "orange", "red", "unknown"] },
-    food_name: { type: "string" },
-    reason: { type: "string" },
-    tip: { type: "string" },
-    recognized: { type: "boolean" },
-    source: { type: "string" },
-    concerns: {
-      type: "array",
-      items: { type: "string", enum: ["potassium", "phosphorus", "sodium", "protein", "fluid"] },
+
+  properties: 
+  {
+    rating: 
+    { 
+      type: "string", 
+      enum: ["green", "yellow", "orange", "red", "unknown"] 
     },
+
+    food_name: 
+    { 
+      type: "string" 
+    },
+
+    reason: 
+    { 
+      type: "string" 
+    },
+
+    tip: 
+    { 
+      type: "string" 
+    },
+
+    recognized: 
+    { 
+      type: "boolean" 
+    },
+
+    source: 
+    { 
+      type: "string" 
+    },
+
+
+    concerns: 
+    {
+      type: "array",
+      items: 
+      { 
+        type: "string", 
+        enum: ["potassium", "phosphorus", "sodium", "protein", "fluid"] 
+      },
+    },
+
   },
   required: ["rating", "food_name", "reason", "tip", "recognized", "source", "concerns"],
   additionalProperties: false,
 };
 
-async function checkMeal({ imageBase64, mediaType, language }) {
-  if (DEMO_MODE) {
+
+
+//sends pic to claude, returns rating
+//also sets example for demo mode
+async function checkMeal(
+  { 
+    imageBase64, 
+    mediaType, 
+    language 
+  }) 
+
+{
+  if (DEMO_MODE) 
+  {
     return {
       rating: "yellow",
       food_name: "Demo meal",
@@ -68,33 +128,64 @@ async function checkMeal({ imageBase64, mediaType, language }) {
     };
   }
 
-  const response = await client.beta.messages.create({
+  const response = await client.beta.messages.create(
+  {
     model: "claude-opus-5-5",
     max_tokens: 2000,
-    output_config: { effort: "low", format: { type: "json_schema", schema: RESULT_SCHEMA } },
-    // If the main model declines, let the API retry on a suitable fallback model.
+    output_config: 
+    { effort: "low", 
+      format: 
+      { 
+        type: "json_schema", 
+        schema: RESULT_SCHEMA 
+      } 
+    },
+
+
+    //if the main model declines, let the API retry on a suitable fallback model
     betas: ["server-side-fallback-2026-07-01"],
     fallbacks: "default",
     system: SYSTEM_PROMPT,
-    messages: [
+    messages: 
+    [
       {
         role: "user",
-        content: [
-          { type: "image", source: { type: "base64", media_type: mediaType, data: imageBase64 } },
-          { type: "text", text: `Rate this meal. Answer in this language: ${language}.` },
+        content: 
+        [
+          { 
+            type: "image", 
+            source: 
+            { 
+              type: "base64",
+              media_type: mediaType, 
+              data: imageBase64 
+            } 
+          },
+
+          { 
+            type: "text", 
+            text: `Rate this meal. Answer in this language: ${language}.` 
+          },
         ],
       },
     ],
   });
 
-  if (response.stop_reason === "refusal") {
+
+  //if Claude refuses to answer, report it as an error
+  if (response.stop_reason === "refusal") 
+  {
     throw new Error("The model declined to answer this photo.");
   }
+
   const text = response.content.find((block) => block.type === "text")?.text;
   return JSON.parse(text);
 }
 
-const CONTENT_TYPES = {
+
+
+const CONTENT_TYPES = 
+{
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
@@ -104,54 +195,108 @@ const CONTENT_TYPES = {
   ".png": "image/png",
 };
 
-async function serveStatic(req, res) {
+
+
+async function serveStatic(req, res) 
+{
   const urlPath = new URL(req.url, "http://localhost").pathname;
   const filePath = path.join(PUBLIC_DIR, urlPath === "/" ? "index.html" : urlPath);
-  if (!filePath.startsWith(PUBLIC_DIR + path.sep)) {
+  //makes sure visitors can only reach files inside public folder
+  if (!filePath.startsWith(PUBLIC_DIR + path.sep)) 
+  {
     res.writeHead(403).end();
     return;
   }
-  try {
+
+  try 
+  {
     const data = await fs.readFile(filePath);
-    res.writeHead(200, { "Content-Type": CONTENT_TYPES[path.extname(filePath)] ?? "application/octet-stream" });
+    res.writeHead(200, 
+      { 
+        "Content-Type": CONTENT_TYPES[path.extname(filePath)] ?? "application/octet-stream" 
+      });
+
     res.end(data);
-  } catch {
+  } 
+
+  catch 
+  {
     res.writeHead(404).end("Not found");
   }
 }
 
-async function readJson(req) {
+
+//reads photo from user and rejects files over 8 MB
+async function readJson(req) 
+{
   let size = 0;
   const chunks = [];
-  for await (const chunk of req) {
+  for await (const chunk of req) 
+  {
     size += chunk.length;
     if (size > MAX_BODY_BYTES) throw new Error("Photo is too big.");
     chunks.push(chunk);
   }
+
   return JSON.parse(Buffer.concat(chunks).toString("utf8"));
 }
 
-const server = http.createServer(async (req, res) => {
-  if (req.method === "POST" && req.url === "/api/check") {
-    try {
+
+
+const server = http.createServer(async (req, res) => 
+{
+  //app.js posts photo here to get rating back from Claude
+  if (req.method === "POST" && req.url === "/api/check") 
+  {
+    try 
+    {
       const body = await readJson(req);
       const result = await checkMeal(body);
-      res.writeHead(200, { "Content-Type": "application/json" });
+      res.writeHead(200, 
+        { 
+          "Content-Type": "application/json" 
+        });
       res.end(JSON.stringify(result));
-    } catch (err) {
+    } 
+    
+    //real errors are only logged here, user recieves a short error message
+    catch (err) 
+    {
       console.error(err);
-      res.writeHead(500, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ error: "Something went wrong. Please try again." }));
+      res.writeHead(500, 
+        { 
+          "Content-Type": "application/json" 
+        });
+
+      res.end(JSON.stringify(
+        { 
+          error: "Something went wrong. Please try again." 
+
+        }));
     }
+
     return;
   }
-  if (req.method === "GET") {
+
+
+  if (req.method === "GET") 
+  {
     await serveStatic(req, res);
     return;
   }
+
   res.writeHead(405).end();
+
 });
 
-server.listen(PORT, () => {
+
+
+server.listen(PORT, () => 
+{
   console.log(`tr4CKD running at http://localhost:${PORT}${DEMO_MODE ? " (demo mode, no API key)" : ""}`);
 });
+
+
+
+
+
