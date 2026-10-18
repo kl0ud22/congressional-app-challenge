@@ -1,37 +1,74 @@
+
 <!doctype html>
 <html lang="en">
+
+
 <head>
   <meta charset="utf-8">
+  <!--lets page fit to phone screen-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#1d4ed8">
+
   <title>tr4CKD</title>
+
+  <!--lets phone add app to home screen-->
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="style.css">
+
 </head>
+
+
+
 <body>
+
+  <!--app name (tr4CKD) and language select go on top bar-->
   <header>
     <h1>tr4CKD</h1>
+
     <label class="lang">
       <span aria-hidden="true">🌐</span>
+      <!--empty tag because app.js will fill in language options-->
       <select id="language" aria-label="Language"></select>
     </label>
+
   </header>
 
+
+
+  <!--
+    note that the app has 3 screens in <main>: start, loading, and result-- but only one is visible at a time
+    app.js switches between these screens by toggling the hidden attribute
+
+    the elements that say 'data-text="xxx" ' will use the words from app.js and will be filled in depending on the language selected
+    english is the default and fallback here, so it only shows if app.js doesn't load
+  -->
   <main>
+
+    <!--SCREEN #1: start screen-->
     <section id="start-screen">
+      <!--the big button is the label that can be tapped to open the hidden file input below that opens the phone's camera-->
       <label class="big-button" for="photo">
         <span class="icon" aria-hidden="true">📷</span>
         <span data-text="takePhoto">Take a photo of your food</span>
       </label>
+
+      <!--'capture="environment"' accesses the back camera, input hidden again because label is the button that accesses it-->
       <input id="photo" type="file" accept="image/*" capture="environment" hidden>
+
     </section>
 
+
+    <!--SCREEN #2: loading screen-->
+    <!--(shows while photo is being analyzed)-->
     <section id="loading-screen" hidden>
       <div class="spinner" aria-hidden="true"></div>
       <p data-text="checking">Checking your food…</p>
     </section>
 
+
+    <!--SCREEN #3: result screen-->
     <section id="result-screen" hidden aria-live="polite">
+      <!--empty boxes will be filled in by app.js with results-->
       <div id="result-card" class="result">
         <div id="result-icon" class="result-icon" aria-hidden="true"></div>
         <p id="result-label" class="result-label"></p>
@@ -40,21 +77,34 @@
         <p id="result-tip" class="result-tip"></p>
         <p id="result-source" class="result-source"></p>
       </div>
+
+
       <button id="speak" class="big-button secondary" type="button">
         <span class="icon" aria-hidden="true">🔊</span>
         <span data-text="readAloud">Read out loud</span>
       </button>
+
       <button id="again" class="big-button" type="button">
         <span class="icon" aria-hidden="true">📷</span>
         <span data-text="tryAnother">Check another food</span>
       </button>
+
     </section>
+
   </main>
+
 
   <footer>
     <p data-text="disclaimer">This is only an estimate, not medical advice. Always follow your doctor and dietitian.</p>
   </footer>
 
   <script src="app.js" type="module"></script>
+
 </body>
+
+
 </html>
+
+
+
+
