@@ -40,7 +40,8 @@ Look at the photo and name the food. Then check it ONLY against the reference li
 - Use "unknown" only if the photo does not show food.
 - Write "reason" and "tip" in the requested language, in very short, plain words a grandparent would understand (one sentence each, no jargon, no numbers).
 - If the photo does not show food, use rating "unknown".
-- You are giving a rough estimate, not medical advice. His dietitian's advice always comes first.
+- You are giving a rough estimate, not medical advice. The user's dietitian's advice always comes first.
+- Speak directly to the person using the app, using "you" and "your" (for example "count this toward your fluid limit"). Never use "he", "she", "him", "his" or "her".
 
 <reference>
 ${REFERENCE}
