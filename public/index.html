@@ -19,6 +19,7 @@
 
 
 
+ 
 <body>
 
   <!--app name (tr4CKD) and language select go on top bar-->
@@ -44,7 +45,8 @@
   -->
   <main>
 
-    <!--SCREEN #1: start screen-->
+    <!-------------------------------Camera screens:------------------------------->
+    <!--CAMERA SCREEN #1: start screen-->
     <section id="start-screen">
       <!--the big button is the label that can be tapped to open the hidden file input below that opens the phone's camera-->
       <label class="big-button" for="photo">
@@ -58,7 +60,7 @@
     </section>
 
 
-    <!--SCREEN #2: loading screen-->
+    <!--CAMERA SCREEN #2: loading screen-->
     <!--(shows while photo is being analyzed)-->
     <section id="loading-screen" hidden>
       <div class="spinner" aria-hidden="true"></div>
@@ -66,7 +68,7 @@
     </section>
 
 
-    <!--SCREEN #3: result screen-->
+    <!--CAMERA SCREEN #3: result screen-->
     <section id="result-screen" hidden aria-live="polite">
       <!--empty boxes will be filled in by app.js with results-->
       <div id="result-card" class="result">
@@ -91,9 +93,35 @@
 
     </section>
 
+
+  <!-------------------------------Info screen:------------------------------->
+    <!--INFO SCREEN: shown when info tab is opened -->
+    <section id="info-screen" hidden>
+      <h2 data-text="infoTitle">Kidney info</h2>
+
+
+    </section>
+
+
   </main>
 
 
+
+  <!--Tab bar at bottom of screen, tab switches controlled by app.js-->
+  <nav id="tab-bar" aria-label="Main">
+    <button type="button" data-tab="camera" class="active" aria-current="page">
+      <span class="icon" aria-hidden="true">📷</span>
+      <span data-text="tabCamera">Camera</span>
+    </button>
+    <button type="button" data-tab="info">
+      <span class="icon" aria-hidden="true">ℹ️</span>
+      <span data-text="tabInfo">Info</span>
+    </button>
+  </nav>
+
+  
+
+<!--Constant reminder that this is NOT professional medical advice and to always prioritize the doctor's suggetsions-->
   <footer>
     <p data-text="disclaimer">This is only an estimate, not medical advice. Always follow your doctor and dietitian.</p>
   </footer>

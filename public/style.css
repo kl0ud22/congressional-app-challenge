@@ -30,6 +30,8 @@ body
   color: var(--text);
   background: var(--bg);
   line-height: 1.4;
+
+  padding-bottom: calc(104px + env(safe-area-inset-bottom));
 }
 
 
@@ -254,5 +256,60 @@ footer
 
 
 
+/*tab bar at bottom of screen*/
+#tab-bar
+{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom);
+  background: #fff;
+  border-top: 3px solid var(--brand);
+}
+
+#tab-bar button
+{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 100px;
+  border: none;
+  background: #fff;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#tab-bar button .icon
+{
+  font-size: 2rem;
+  line-height: 1;
+}
+
+/*fill in selected tab*/
+#tab-bar button.active
+{
+  background: var(--brand);
+  color: #fff;
+}
+
+#tab-bar button:focus-visible
+{
+  outline: 5px solid #000;
+  outline-offset: -5px;
+}
+
+#info-screen h2
+{
+  margin: 0;
+  font-size: 1.4rem;
+}
 
 
