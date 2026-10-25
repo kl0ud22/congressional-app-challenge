@@ -16,6 +16,10 @@ const LANGUAGES =
     disclaimer: "This is only an estimate, not medical advice. Always follow your doctor and dietitian.",
     error: "Sorry, something went wrong. Please try again.",
     labels: { green: "Good choice", yellow: "Small amount only", orange: "Be careful", red: "Avoid", unknown: "Not sure" },
+
+    tabCamera: "Camera",
+    tabInfo: "Info",
+    infoTitle: "Kidney info",
   },
 
   //set Spanish words and labels
@@ -30,6 +34,10 @@ const LANGUAGES =
     disclaimer: "Esto es solo una estimación, no un consejo médico. Siga siempre a su médico y dietista.",
     error: "Lo siento, algo salió mal. Inténtelo de nuevo.",
     labels: { green: "Buena opción", yellow: "Solo un poco", orange: "Cuidado", red: "Evitar", unknown: "No estoy seguro" },
+
+    tabCamera: "Cámara",
+    tabInfo: "Información",
+    infoTitle: "Información sobre los riñones",
   },
 
   //set Cantonese words and labels
@@ -45,6 +53,10 @@ const LANGUAGES =
     disclaimer: "呢個只係估計，唔係醫療建議。請跟醫生同營養師嘅指示。",
     error: "唔好意思，出咗問題。請再試一次。",
     labels: { green: "可以食", yellow: "食少少", orange: "小心", red: "唔好食", unknown: "唔肯定" },
+
+    tabCamera: "影相",
+    tabInfo: "資料",
+    infoTitle: "腎臟資料",
   },
 
   //set Mandarin words and labels
@@ -59,6 +71,10 @@ const LANGUAGES =
     disclaimer: "这只是估计，不是医疗建议。请遵从医生和营养师的指导。",
     error: "出错了，请再试一次。",
     labels: { green: "可以吃", yellow: "少吃一点", orange: "小心", red: "不要吃", unknown: "不确定" },
+
+    tabCamera: "拍照",
+    tabInfo: "资料",
+    infoTitle: "肾脏资料",
   },
 
 };
@@ -76,8 +92,11 @@ const ICONS =
 };
 
 const $ = (id) => document.getElementById(id);
-const screens = ["start-screen", "loading-screen", "result-screen"];
+const screens = ["start-screen", "loading-screen", "result-screen", "info-screen"];
 let lastResult = null;
+
+let currentTab = "camera";
+let cameraScreen = "start-screen";
 
 
 
@@ -124,10 +143,26 @@ function setLanguage(code)
 //shows only one screen at a time
 function showScreen(id) 
 {
+  //remember the camera screen even while on the Info tab, so a result that arrives late doesn't pull you away from Info page
+  if (id !== "info-screen") cameraScreen = id;
+  const visible = currentTab === "info" ? "info-screen" : cameraScreen;
   screens.forEach((s) => 
     { 
-      $(s).hidden = s !== id; 
+      $(s).hidden = s !== visible; 
     });
+}
+
+function showTab(tab) 
+{
+  currentTab = tab;
+  document.querySelectorAll("#tab-bar button").forEach((button) => 
+    {
+    const active = button.dataset.tab === tab;
+    button.classList.toggle("active", active);
+    if (active) button.setAttribute("aria-current", "page");
+    else button.removeAttribute("aria-current");
+  });
+  showScreen(cameraScreen);
 }
 
 
@@ -268,6 +303,11 @@ $("again").addEventListener("click", () =>
 {
   lastResult = null;
   showScreen("start-screen");
+});
+
+//making tabs switchable by clicking
+document.querySelectorAll("#tab-bar button").forEach((button) => {
+  button.addEventListener("click", () => showTab(button.dataset.tab));
 });
 
 
