@@ -22,6 +22,19 @@ const LANGUAGES =
     tabInfo: "Info",
     infoTitle: "Kidney info",
 
+    //calendar words
+    tabCalendar: "Calendar",
+    calTitle: "Appointments",
+    calDate: "Date",
+    calTime: "Time",
+    calNote: "What is it for?",
+    calAdd: "Add appointment",
+    calDelete: "Delete",
+    calEmpty: "No appointments yet.",
+    calToday: "Today",
+    calTomorrow: "Tomorrow",
+    calConfirm: "Delete this appointment?",
+
     //INFO PAGE CONTENT:
     info: 
     {
@@ -91,6 +104,18 @@ const LANGUAGES =
     tabCamera: "Cámara",
     tabInfo: "Información",
     infoTitle: "Información sobre los riñones",
+
+    tabCalendar: "Calendario",
+    calTitle: "Citas",
+    calDate: "Fecha",
+    calTime: "Hora",
+    calNote: "¿Para qué es?",
+    calAdd: "Agregar cita",
+    calDelete: "Borrar",
+    calEmpty: "Aún no hay citas.",
+    calToday: "Hoy",
+    calTomorrow: "Mañana",
+    calConfirm: "¿Borrar esta cita?",
 
     info: 
     {
@@ -162,41 +187,63 @@ const LANGUAGES =
     tabInfo: "資料",
     infoTitle: "腎臟資料",
 
-        info: {
+    tabCalendar: "日曆",
+    calTitle: "預約",
+    calDate: "日期",
+    calTime: "時間",
+    calNote: "係咩事？",
+    calAdd: "加預約",
+    calDelete: "刪除",
+    calEmpty: "仲未有預約。",
+    calToday: "今日",
+    calTomorrow: "聽日",
+    calConfirm: "要刪除呢個預約嗎？",
+        
+    info: 
+    {
       about: "第4期腎病嘅腎臟洗唔乾淨血液。揀啱食物可以保護腎臟。你嘅限制要問醫生同營養師，因為驗血結果會決定你可以食幾多鉀同磷。",
       sections: [
-        { color: "green", title: "可以食", items: [
+        { 
+          color: "green", title: "可以食", items: [
           "蘋果、莓同提子",
           "椰菜花、椰菜、甜椒同洋蔥",
           "白飯、白麵包同意粉",
           "無鹽爆谷同無鹽餅乾",
-          "橄欖油、香草同香料",
-        ] },
-        { color: "yellow", title: "食少少", items: [
+          "橄欖油、香草同香料",] 
+        },
+
+        { 
+          color: "yellow", title: "食少少", items: [
           "雞、火雞、魚同蛋",
           "豆、扁豆同豆腐",
           "低脂奶或乳酪",
-          "紅肉，一個星期最多一次",
-        ] },
-        { color: "orange", title: "小心（盡量少食）", items: [
+          "紅肉，一個星期最多一次",] 
+        },
+
+        { 
+          color: "orange", title: "小心（盡量少食）", items: [
           "香蕉、橙同蜜瓜",
           "薯仔、番茄同菠菜",
           "牛油果",
           "果仁、種子同燕麥",
-          "提子乾同西梅乾",
-        ] },
-        { color: "red", title: "唔好食", items: [
+          "提子乾同西梅乾",] 
+        },
+
+        { 
+          color: "red", title: "唔好食", items: [
           "煙肉、火腿、腸同凍肉",
           "炸嘢同快餐",
           "罐頭或鹹嘅食物、薯片同豉油",
           "代鹽（含鉀）",
           "深色可樂同成分有「phos」嘅食物",
-          "椰漿",
-        ] },
-        { color: "gray", title: "飲品都要計", items: [
+          "椰漿",] 
+        },
+
+        { 
+          color: "gray", title: "飲品都要計", items: [
           "所有液體都計入你嘅飲水限額：水、咖啡、奶、果汁、湯、冰、啫喱同雪糕。",
-          "請問醫護團隊你一日可以飲幾多。",
-        ] },
+          "請問醫護團隊你一日可以飲幾多。",] 
+        },
       ],
 
       links: "了解更多（英文網站）",
@@ -220,6 +267,18 @@ const LANGUAGES =
     tabCamera: "拍照",
     tabInfo: "资料",
     infoTitle: "肾脏资料",
+
+    tabCalendar: "日历",
+    calTitle: "预约",
+    calDate: "日期",
+    calTime: "时间",
+    calNote: "是什么事？",
+    calAdd: "添加预约",
+    calDelete: "删除",
+    calEmpty: "还没有预约。",
+    calToday: "今天",
+    calTomorrow: "明天",
+    calConfirm: "要删除这个预约吗？",
 
     info: 
     {
@@ -303,11 +362,17 @@ const ICONS =
 };
 
 const $ = (id) => document.getElementById(id);
-const screens = ["start-screen", "loading-screen", "result-screen", "info-screen"];
+const screens = ["start-screen", "loading-screen", "result-screen", "info-screen", "calendar-screen"];
 let lastResult = null;
 
 let currentTab = "camera";
 let cameraScreen = "start-screen";
+
+const tabScreens = 
+{ 
+  info: "info-screen", 
+  calendar: "calendar-screen" 
+};
 
 
 
@@ -379,6 +444,110 @@ function renderInfo()
 
 
 
+//appointments are saved on user phone only (localStorage) so its never sent anywhere
+function loadAppointments() 
+{
+  try 
+  {
+    const saved = JSON.parse(localStorage.getItem("appointments"));
+    return Array.isArray(saved) ? saved : [];
+  } 
+  
+  catch 
+  {
+    return [];
+  }
+}
+
+function saveAppointments(list) 
+{
+  try 
+  { 
+    localStorage.setItem("appointments", JSON.stringify(list)); 
+  } 
+  
+  catch {}
+}
+
+//set today's date as "YYYY-MM-DD" in the phone's own time zone, same format as the date box
+function todayString(offsetDays = 0) 
+{
+  const d = new Date();
+  d.setDate(d.getDate() + offsetDays);
+  return d.toLocaleDateString("en-CA");
+}
+
+//organizes appointment list from what is saved (soonest first, past appointments hidden)
+function renderAppointments() 
+{
+  const words = LANGUAGES[getLanguage()];
+  const box = $("appointment-list");
+  box.replaceChildren();
+  $("appt-date").min = todayString();
+
+  const upcoming = loadAppointments()
+    .filter((a) => a.date >= todayString())
+    .sort((a, b) => (a.date + (a.time || "")).localeCompare(b.date + (b.time || "")));
+
+  if (upcoming.length === 0) 
+  {
+    const empty = document.createElement("p");
+    empty.textContent = words.calEmpty;
+    box.append(empty);
+    return;
+  }
+
+  for (const appt of upcoming) 
+  {
+    const [year, month, day] = appt.date.split("-").map(Number);
+    let dateText = new Date(year, month - 1, day).toLocaleDateString(words.speech, 
+    { 
+      weekday: "long", 
+      month: "long", 
+      day: "numeric" 
+    });
+
+    if (appt.date === todayString()) dateText = `${words.calToday}, ${dateText}`;
+    if (appt.date === todayString(1)) dateText = `${words.calTomorrow}, ${dateText}`;
+    if (appt.time) 
+    {
+      const [hour, minute] = appt.time.split(":").map(Number);
+      dateText += `, ${new Date(2000, 0, 1, hour, minute).toLocaleTimeString(words.speech, 
+        { 
+          hour: "numeric", 
+          minute: "2-digit" 
+        })}`;
+    }
+
+    const card = document.createElement("div");
+    card.className = "appointment";
+
+    const text = document.createElement("div");
+    const when = document.createElement("div");
+    when.className = "appointment-date";
+    when.textContent = dateText;
+    const note = document.createElement("div");
+    note.className = "appointment-note";
+    note.textContent = appt.note;
+    text.append(when, note);
+
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.textContent = words.calDelete;
+    remove.addEventListener("click", () => 
+    {
+      if (!confirm(words.calConfirm)) return;
+      saveAppointments(loadAppointments().filter((a) => a.id !== appt.id));
+      renderAppointments();
+    });
+
+    card.append(text, remove);
+    box.append(card);
+  }
+}
+
+
+
 //change all the text marked as 'data-text' to the chosen language
 function setLanguage(code) 
 {
@@ -397,6 +566,7 @@ function setLanguage(code)
   });
   
   renderInfo();
+  renderAppointments();
   if (lastResult) showResult(lastResult);
 
 }
@@ -406,13 +576,13 @@ function setLanguage(code)
 //shows only one screen at a time
 function showScreen(id) 
 {
-  //remember the camera screen even while on the Info tab, so a result that arrives late doesn't pull you away from Info page
-  if (id !== "info-screen") cameraScreen = id;
-  const visible = currentTab === "info" ? "info-screen" : cameraScreen;
+  //remember camera screen results even while on another tab so late results don't pull you away from other screens
+  cameraScreen = id;
+  const visible = tabScreens[currentTab] ?? cameraScreen;
   screens.forEach((s) => 
-    { 
-      $(s).hidden = s !== visible; 
-    });
+  { 
+    $(s).hidden = s !== visible; 
+  });
 }
 
 function showTab(tab) 
@@ -425,6 +595,7 @@ function showTab(tab)
     if (active) button.setAttribute("aria-current", "page");
     else button.removeAttribute("aria-current");
   });
+  if (tab === "calendar") renderAppointments();
   showScreen(cameraScreen);
 }
 
@@ -569,10 +740,29 @@ $("again").addEventListener("click", () =>
 });
 
 //making tabs switchable by clicking
-document.querySelectorAll("#tab-bar button").forEach((button) => {
+document.querySelectorAll("#tab-bar button").forEach((button) => 
+{
   button.addEventListener("click", () => showTab(button.dataset.tab));
 });
 
+
+
+//adding appointments after appoiintment form is filled out
+$("appointment-form").addEventListener("submit", (event) => 
+{
+  event.preventDefault();
+  const list = loadAppointments();
+  list.push(
+  {
+    id: Date.now(),
+    date: $("appt-date").value,
+    time: $("appt-time").value,
+    note: $("appt-note").value.trim(),
+  });
+  saveAppointments(list);
+  event.target.reset();
+  renderAppointments();
+});
 
 
 

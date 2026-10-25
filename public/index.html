@@ -94,7 +94,41 @@
     </section>
 
 
-  <!-------------------------------Info screen:------------------------------->
+
+    <!-------------------------------Calendar screen:------------------------------->
+    <!--CALENDAR SCREEN: shown when calendar tab is opened-->
+    <section id="calendar-screen" hidden>
+      <h2 data-text="calTitle">Appointments</h2>
+
+      <form id="appointment-form">
+        <label>
+          <span data-text="calDate">Date</span>
+          <input id="appt-date" type="date" required>
+        </label>
+
+        <label>
+          <span data-text="calTime">Time</span>
+          <input id="appt-time" type="time">
+        </label>
+
+        <label>
+          <span data-text="calNote">What is it for?</span>
+          <input id="appt-note" type="text" maxlength="60" required>
+        </label>
+
+        <button type="submit" class="big-button">
+          <span class="icon" aria-hidden="true">➕</span>
+          <span data-text="calAdd">Add appointment</span>
+        </button>
+      </form>
+
+      <!--Emply so that app.js fills in the saved appointments-->
+      <div id="appointment-list"></div>
+    </section>
+
+
+
+    <!-------------------------------Info screen:------------------------------->
     <!--INFO SCREEN: shown when info tab is opened -->
     <section id="info-screen" hidden>
       <h2 data-text="infoTitle">Kidney info</h2>
@@ -112,10 +146,19 @@
 
   <!--Tab bar at bottom of screen, tab switches controlled by app.js-->
   <nav id="tab-bar" aria-label="Main">
+    <!--Camera tab-->
     <button type="button" data-tab="camera" class="active" aria-current="page">
       <span class="icon" aria-hidden="true">📷</span>
       <span data-text="tabCamera">Camera</span>
     </button>
+
+    <!--Calendar tab-->
+    <button type="button" data-tab="calendar">
+      <span class="icon" aria-hidden="true">📅</span>
+      <span data-text="tabCalendar">Calendar</span>
+    </button>
+
+    <!--Info tab-->
     <button type="button" data-tab="info">
       <span class="icon" aria-hidden="true">ℹ️</span>
       <span data-text="tabInfo">Info</span>
