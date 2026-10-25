@@ -313,3 +313,72 @@ footer
 }
 
 
+#info-content
+{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 1rem;
+}
+
+#info-content p,
+#info-content h3,
+#info-content ul
+{
+  margin: 0;
+}
+
+/*cards that will describe each rating category, color border = rating box*/
+.info-card
+{
+  padding: 16px;
+  border-left: 14px solid var(--gray);
+  border-radius: 16px;
+  background: #f3f4f6;
+}
+
+.info-card.green  { border-left-color: var(--green); }
+.info-card.yellow { border-left-color: var(--yellow); }
+.info-card.orange { border-left-color: var(--orange); }
+.info-card.red    { border-left-color: var(--red); }
+
+.info-card h3
+{
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}
+
+.info-card ul
+{
+  padding-left: 1.2em;
+}
+
+.info-card li
+{
+  margin: 6px 0;
+}
+
+/*where the links for the sources will go*/
+.info-links
+{
+  padding-left: 0;
+  list-style: none;
+}
+
+.info-links li
+{
+  margin: 8px 0;
+}
+
+.info-links a
+{
+  display: block;
+  padding: 12px 0;
+  color: var(--brand);
+  font-weight: 700;
+}
+
+
+
+
+
