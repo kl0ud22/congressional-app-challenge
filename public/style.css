@@ -337,10 +337,27 @@ footer
   background: #f3f4f6;
 }
 
-.info-card.green  { border-left-color: var(--green); }
-.info-card.yellow { border-left-color: var(--yellow); }
-.info-card.orange { border-left-color: var(--orange); }
-.info-card.red    { border-left-color: var(--red); }
+
+.info-card.green  
+{ 
+  border-left-color: var(--green); 
+}
+
+.info-card.yellow 
+{ 
+  border-left-color: var(--yellow); 
+}
+
+.info-card.orange 
+{ 
+  border-left-color: var(--orange); 
+}
+
+.info-card.red    
+{ 
+  border-left-color: var(--red); 
+}
+
 
 .info-card h3
 {

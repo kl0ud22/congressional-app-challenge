@@ -39,7 +39,8 @@ const LANGUAGES =
     info: 
     {
       about: "In stage 4 kidney disease, the kidneys do not clean the blood well. Choosing the right foods helps protect them. Your doctor and dietitian tell you your own limits, because blood tests decide how much potassium and phosphorus you can have.",
-      sections: [
+      sections: 
+      [
         { 
           color: "green", title: "Good choices", items: [
           "Apples, berries and grapes",
@@ -120,7 +121,8 @@ const LANGUAGES =
     info: 
     {
       about: "En la enfermedad renal en etapa 4, los riñones no limpian bien la sangre. Elegir bien los alimentos ayuda a protegerlos. Su médico y su dietista le dicen sus propios límites, porque los análisis de sangre deciden cuánto potasio y fósforo puede tomar.",
-      sections: [
+      sections: 
+      [
         { 
           color: "green", title: "Buena opción", items: [
           "Manzanas, frutos rojos y uvas",
@@ -202,7 +204,8 @@ const LANGUAGES =
     info: 
     {
       about: "第4期腎病嘅腎臟洗唔乾淨血液。揀啱食物可以保護腎臟。你嘅限制要問醫生同營養師，因為驗血結果會決定你可以食幾多鉀同磷。",
-      sections: [
+      sections: 
+      [
         { 
           color: "green", title: "可以食", items: [
           "蘋果、莓同提子",
@@ -283,7 +286,8 @@ const LANGUAGES =
     info: 
     {
       about: "在4期肾病, 肾脏清理血液的能力下降。选对食物有助于保护肾脏。你自己的限制请问医生和营养师, 因为验血结果决定你每天可以摄入多少钾和磷。",
-      sections: [
+      sections: 
+      [
         { 
           color: "green", title: "可以吃", items: [
           "苹果、莓类和葡萄",
@@ -384,7 +388,6 @@ function getLanguage()
     return LANGUAGES[localStorage.getItem("language")] ? localStorage.getItem("language") : "en";
   } 
   
-
   catch 
   {
     return "en";
@@ -513,10 +516,10 @@ function renderAppointments()
     {
       const [hour, minute] = appt.time.split(":").map(Number);
       dateText += `, ${new Date(2000, 0, 1, hour, minute).toLocaleTimeString(words.speech, 
-        { 
-          hour: "numeric", 
-          minute: "2-digit" 
-        })}`;
+      { 
+        hour: "numeric", 
+        minute: "2-digit" 
+      })}`;
     }
 
     const card = document.createElement("div");
@@ -589,7 +592,7 @@ function showTab(tab)
 {
   currentTab = tab;
   document.querySelectorAll("#tab-bar button").forEach((button) => 
-    {
+  {
     const active = button.dataset.tab === tab;
     button.classList.toggle("active", active);
     if (active) button.setAttribute("aria-current", "page");
@@ -689,7 +692,13 @@ async function checkPhoto(file)
       { 
         "Content-Type": "application/json" 
       },
-      body: JSON.stringify({ imageBase64, mediaType: "image/jpeg", language: LANGUAGES[getLanguage()].aiName ?? LANGUAGES[getLanguage()].name }),
+      
+      body: JSON.stringify(
+      { 
+        imageBase64, 
+        mediaType: "image/jpeg", 
+        language: LANGUAGES[getLanguage()].aiName ?? LANGUAGES[getLanguage()].name 
+      }),
     });
 
 
